@@ -41,10 +41,12 @@ const CellGroupManager = () => {
 
   useEffect(() => {
     refreshData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     calculateSummary();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cellGroupState.zones]);
 
   const calculateSummary = () => {
