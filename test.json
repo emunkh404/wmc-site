@@ -1,0 +1,112 @@
+{
+  "users": {
+    "0DX33cWnJBXAZaVGXtEtm3E1az63": {
+      "email": "test1@email.com",
+      "role": "user"
+    },
+    "BmESNQOHYoPQk95k70lfRF9WaAF2": {
+      "email": "admin@email.com",
+      "role": "admin"
+    },
+    "lOwbdt0a2rhpDwVUZuoMRPpbetr2": {
+      "email": "moderator@email.com",
+      "role": "moderator"
+    },
+    "sufpVIunzQhV5setS3zWV5KnoLz2": {
+      "email": "user@email.com",
+      "role": "user"
+    }
+  },
+  "newsAds": {
+    "news1": {
+      "title": "Upcoming Event",
+      "content": "Join us for our upcoming event this weekend.",
+      "author": "admin",
+      "date": "2024-05-25"
+    },
+    "ad1": {
+      "title": "Community Outreach",
+      "content": "Our community outreach program needs volunteers.",
+      "author": "admin",
+      "date": "2024-05-20"
+    }
+  },
+  "prayerRequests": {
+    "request1": {
+      "subject": "Pray for Health",
+      "description": "Please pray for good health for our community.",
+      "submittedBy": "user1",
+      "dueDate": "2024-05-21",
+      "comments": {
+        "comment1": {
+          "text": "Praying for you!",
+          "author": "user2",
+          "date": "2024-05-21"
+        }
+      },
+      "prayers": {
+        "prayer1": {
+          "user": "user3"
+        },
+        "prayer2": {
+          "user": "user2"
+        }
+      }
+    }
+  },
+
+  "attendanceRecords": {
+    "report": {
+      "totalMembers": 100,
+      "weeklyAttendance": {
+        "2024-05-20": 80,
+        "2024-05-10": 85
+      }
+    },
+    "zone-1": {
+      "zoneLeader": "zone leader1",
+      "zoneName": "AAA",
+      "cellGroups": {
+        "group1": {
+          "name": "Group One",
+          "location": "5550 CP",
+          "leader": "leader1",
+          "leaderId": "0DX33cWnJBXAZaVGXtEtm3E1az63",
+          "assistant": "assistant1",
+          "assistantId": "sufpVIunzQhV5setS3zWV5KnoLz2",
+          "totalMembers": 6,
+          "attendance": {
+            "thisWeek": 5,
+            "updatedBy": "leader1",
+            "date": "2024-05-20"
+          }
+        },
+        "group2": {}
+      }
+    },
+    "zone2": {}
+  },
+
+  "transportation": {
+    "drivers": {
+      "driver1": {
+        "name": "Driver One",
+        "phone": "1234567890",
+        "vehicle": "Car",
+        "available": true,
+        "rating": 5
+      }
+    },
+    "passengers": {
+      "passenger1": {
+        "passengerName": "John",
+        "pickupLocation": "5550 CP",
+        "dropLocation": "5550 CP-2",
+        "pickupTime": "2024-05-20 10:00",
+        "dropTime": "2024-05-20 11:00",
+        "contact": "1234567890",
+        "rating": 5
+      }
+    }
+  }
+}
