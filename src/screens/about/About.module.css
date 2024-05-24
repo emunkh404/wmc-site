@@ -1,0 +1,19 @@
+.container {
+    padding: 20px;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .text {
+    text-align: justify;
+    margin-bottom: 15px;
+  }
+  
+  .carouselImage {
+    max-height: 500px;
+    object-fit: cover;
+  }
+  

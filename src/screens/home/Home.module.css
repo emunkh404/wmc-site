@@ -1,4 +1,10 @@
 .container {
-    display: flex;
-    text-align: center;
+  width: 80%;
+  margin: 2rem auto;
+}
+
+.text {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  line-height: 1.6;
 }

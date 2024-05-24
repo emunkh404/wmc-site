@@ -27,7 +27,6 @@
   border-bottom: 2px solid #DAA520;
 }
 
-
 .navLink {
   color: #DAA520 !important;
   font-size: 1rem;
@@ -47,20 +46,24 @@
   border-radius: 5px !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
   padding: 0.5rem 0 !important;
-  color: #DAA520 !important;
 }
 
 .dropdownItem {
-  color: #DAA520 !important;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.3s ease;
-  border-radius: 5px !important;
+  background-color: transparent;
+  border: 2px solid #ffcc00;
+  color: #ffcc00;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 5%;
+  margin: 5px 0;
 }
 
 .dropdownItem:hover {
   background-color: #ffcc00 !important;
-  color: #000 !important;
+  color: #fff !important;
+  border-color: #DAA520 !important;
 }
 
 .dropdownDivider {

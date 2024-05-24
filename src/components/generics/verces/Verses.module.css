@@ -1,0 +1,50 @@
+.verseContainer {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+    
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url('/public/cloudy_background.png');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .verseText {
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .verseText p {
+    font-size: 1.5rem;
+    color: #333333;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .reference {
+    font-size: 1.25rem;
+    color: #555555;
+    font-style: italic;
+  }
+  
+  .newVerseButton {
+    background-color: #ffcc00;
+    color: #333333;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.25rem;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .newVerseButton:hover {
+    background-color: #e6b800;
+    transform: scale(1.05);
+  }
+  

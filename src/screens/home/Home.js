@@ -1,11 +1,25 @@
 import React from "react";
-import styles from "./Home.module.css";
 import NavBarGen from "../../components/generics/navbar/NavBarGen";
+import CarouselFade from "../../components/generics/carousel/CarouselFade";
+import styles from "./Home.module.css";
+import Banner from "../../components/generics/banner/Banner";
+import FooterGen from "../../components/generics/footerGen/FooterGen";
+import OurServicesCards from "../../components/customs/ourServicesCards/OurServicesCards";
+import Verses from "../../components/generics/verces/Verses";
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className={styles.container}>
+    <>
       <NavBarGen />
-    </div>
+      <CarouselFade />
+      <div className={styles.container}>        
+        <Banner/>
+        <OurServicesCards/>
+        <Verses/>
+      </div>
+      <FooterGen/>
+    </>
   );
-}
+};
+
+export default Home;

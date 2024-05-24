@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+import NavBarGen from '../../components/generics/navbar/NavBarGen';
 
 const RoleManagement = () => {
   const { state, updateUserRole } = useContext(UserContext);
@@ -51,6 +52,8 @@ const RoleManagement = () => {
   };
 
   return (
+    <>    
+    <NavBarGen/>
     <Container className="mt-5">
       <Card>
         <Card.Header as="h5">Role Management</Card.Header>
@@ -83,6 +86,7 @@ const RoleManagement = () => {
         </Card.Body>
       </Card>
     </Container>
+    </>
   );
 };
 

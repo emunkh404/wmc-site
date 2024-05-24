@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
 import styles from './LoginPage.module.css';
+import NavBarGen from '../../components/generics/navbar/NavBarGen';
 
 const Login = () => {
   const emailRef = useRef(null);
@@ -47,6 +48,8 @@ const Login = () => {
   };
 
   return (
+    <>
+    <NavBarGen/>
     <Container className={styles.root}>
       <div className={styles.formContainer}>
         <h1 className={styles.formTitle}>Login</h1>
@@ -77,8 +80,12 @@ const Login = () => {
             Login
           </Button>
         </Form>
+        <p className={styles.signupLink} onClick={() => navigate('/register')}>
+          Don't have an account? Click here
+        </p>
       </div>
     </Container>
+    </>
   );
 };
 

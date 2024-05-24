@@ -1,0 +1,26 @@
+.imageWrapper {
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.textOverlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.carouselCaption h3 {
+  font-size: 2rem;
+  color: #ffffff; 
+}
+
+.carouselCaption p {
+  font-size: 1.25rem;
+  color: white; 
+}

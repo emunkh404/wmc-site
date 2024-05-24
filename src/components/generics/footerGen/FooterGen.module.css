@@ -1,0 +1,27 @@
+.footer {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .address {
+    margin-bottom: 10px;
+  }
+  
+  .socialMedia {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .icon {
+    font-size: 24px;
+    color: #000;
+    transition: color 0.3s;
+  }
+  
+  .icon:hover {
+    color: #ffcc00; /* Adjust this to your desired hover color */
+  }
+  
