@@ -1,33 +1,4 @@
 {
-  "attendanceRecords": {
-    "report": {
-      "totalMembers": 100,
-      "weeklyAttendance": {
-        "2024-05-10": 85,
-        "2024-05-20": 80
-      }
-    },
-    "zone-1716487685309": {
-      "cellGroups": {
-        "group-1716487703429": {
-          "assistant": "",
-          "assistantId": "sufpVIunzQhV5setS3zWV5KnoLz2",
-          "attendance": {
-            "thisWeek": "1"
-          },
-          "leader": "",
-          "leaderId": "0DX33cWnJBXAZaVGXtEtm3E1az63",
-          "location": "Arlington, VA, USA.",
-          "name": "DC mgl",
-          "totalMembers": "10"
-        }
-      },
-      "zoneLeader": "",
-      "zoneLeaderId": "0DX33cWnJBXAZaVGXtEtm3E1az63",
-      "zoneName": "asd"
-    }
-  },
-
   "prayerRequests": {
     "request-1716566492157": {
       "submittedBy": "John",
@@ -64,24 +35,43 @@
     }
   },
 
- "users": {
+  "users": {
     "0DX33cWnJBXAZaVGXtEtm3E1az63": {
       "email": "test1@email.com",
+      "role": "user"
+    },
+    "1LsMH5EzGOa5Q2ngT3RIdHDuBQl2": {
+      "email": "user5@wmc.com",
       "role": "user",
-      "username": "John Don"
+      "username": "John Tsogo"
+    },
+    "2tgIizmhi9gScSZKDw0L9jrTJck2": {
+      "email": "user2@email.com",
+      "role": "user"
     },
     "BmESNQOHYoPQk95k70lfRF9WaAF2": {
       "email": "admin@email.com",
-      "role": "admin",
-      "username": "Bat Bold"
+      "role": "admin"
+    },
+    "TzcCirLatVXtpNLpIG52XDafhS63": {
+      "email": "boroo@wmc.com",
+      "role": "moderator"
     },
     "lOwbdt0a2rhpDwVUZuoMRPpbetr2": {
       "email": "moderator@email.com",
-      "role": "moderator",
-      "username": "Kirk Ways"
+      "role": "moderator"
+    },
+    "sWSTxEAyGJXobeaZFGFgezQRFN22": {
+      "email": "user3@wmc.com",
+      "role": "user",
+      "username": "Bat Bold"
     },
     "sufpVIunzQhV5setS3zWV5KnoLz2": {
       "email": "user@email.com",
+      "role": "user"
+    },
+    "zBYgrgmgLRT7IAbK8fUwDhZwlwA2": {
+      "email": "user4@wmc.com",
       "role": "user",
       "username": "Wendy Arch"
     }

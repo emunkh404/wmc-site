@@ -84,17 +84,17 @@ function NavBarGen() {
                 >
                   <NavDropdown.Item
                     as={NavLink}
-                    to="/"
+                    to="/prayers"
                     className={styles.dropdownItem}
                   >
-                    Service 1
+                    Prayers
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     as={NavLink}
                     to="/"
                     className={styles.dropdownItem}
                   >
-                    Service 2
+                    Transportation
                   </NavDropdown.Item>
                   <NavDropdown.Divider className={styles.dropdownDivider} />
                   <NavDropdown.Item

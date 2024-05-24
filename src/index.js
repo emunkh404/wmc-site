@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import UserStore from "./contexts/userContext/UserContext";
 import CellGroupStore from "./contexts/cellGroupContext/CellGroupContext";
+import PrayerStore from "./contexts/prayerContext/PrayerContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <UserStore>
       <CellGroupStore>
+        <PrayerStore>
         <App />
+        </PrayerStore>
       </CellGroupStore>
     </UserStore>
   </React.StrictMode>

@@ -1,0 +1,102 @@
+.container {
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.requestSubject{
+  font-size: 1.4rem;
+  color: #ffc107;
+  text-shadow: 1px 1px 1px black;
+}
+
+.comments {
+  background-color: rgba(102, 158, 180, 0.158);
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.comment {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  max-width: 50%;
+  word-wrap: break-word;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left {
+  background-color: #f1f1f1;
+  text-align: left;
+}
+
+.right {
+  background-color: #e0ffe0;
+  text-align: left;
+  margin-left: auto;
+}
+
+.comment p {
+  margin: 0;
+}
+
+.date {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 10px;
+  right: -30px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.addCommentForm {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.description {
+  background-color:rgba(102, 158, 180, 0.158);
+  padding: 1.5rem;
+  color: #072cff;
+  text-shadow: 1px 1px 1px black;
+}
+
+@media (max-width: 768px) {
+  .comment {
+    max-width: 100%;
+  }
+}
+
+.dropdownToggle {
+  display: flex;
+  align-items: center;
+  background-color: #ffc107;
+  padding: 5px 2px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dropdownBadge {
+  margin-left: 5px;
+  position: fixed;
+  margin-top: 0;
+}

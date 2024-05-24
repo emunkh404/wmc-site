@@ -13,6 +13,8 @@ const initialState = {
   userId: null,
   expireDate: null,
   role: null,
+  users: {},
+  username: null,
 };
 
 const reducer = (state, action) => {
@@ -27,6 +29,7 @@ const reducer = (state, action) => {
         userId: action.payload.userId,
         expireDate: action.payload.expireDate,
         role: action.payload.role,
+        username: action.payload.username,
       };
     case 'SIGNUP_SUCCESS':
       return {
@@ -38,6 +41,7 @@ const reducer = (state, action) => {
         userId: action.payload.userId,
         expireDate: action.payload.expireDate,
         role: action.payload.role,
+        username: action.payload.username,
       };
     case 'LOGIN_FAIL':
     case 'SIGNUP_FAIL':
@@ -51,6 +55,7 @@ const reducer = (state, action) => {
         userId: null,
         expireDate: null,
         role: null,
+        username: null,
       };
     case 'LOGOUT':
       return {
@@ -59,6 +64,7 @@ const reducer = (state, action) => {
         userId: null,
         expireDate: null,
         role: null,
+        username: null,
       };
     case 'START_LOGIN':
     case 'START_SIGNUP':
@@ -68,6 +74,18 @@ const reducer = (state, action) => {
         saving: true,
         loading: true,
         error: null,
+      };
+    case 'FETCH_USERS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        users: action.payload.users,
+      };
+    case 'FETCH_USERS_FAIL':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
       };
     default:
       return state;
@@ -81,6 +99,7 @@ const UserStore = ({ children }) => {
     const checkUser = async () => {
       const token = localStorage.getItem('token');
       const userId = localStorage.getItem('userId');
+      const username = localStorage.getItem('username');
       if (token && userId) {
         try {
           const userResponse = await instance.get(`/users/${userId}.json?auth=${token}`);
@@ -92,6 +111,7 @@ const UserStore = ({ children }) => {
               userId,
               expireDate: new Date(localStorage.getItem('expireDate')),
               role,
+              username,
             },
           });
         } catch (error) {
@@ -114,15 +134,17 @@ const UserStore = ({ children }) => {
       const { idToken, localId, expiresIn } = response.data;
       const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
 
+      // Fetch user role and username from Firebase Realtime Database
+      const userResponse = await instance.get(`/users/${localId}.json?auth=${idToken}`);
+      const role = userResponse.data.role;
+      const username = userResponse.data.username;
+
       localStorage.setItem('token', idToken);
       localStorage.setItem('userId', localId);
       localStorage.setItem('expireDate', expireDate);
+      localStorage.setItem('username', username);
 
-      // Fetch user role from Firebase Realtime Database
-      const userResponse = await instance.get(`/users/${localId}.json?auth=${idToken}`);
-      const role = userResponse.data.role;
-
-      dispatch({ type: 'LOGIN_SUCCESS', payload: { token: idToken, userId: localId, expireDate, role } });
+      dispatch({ type: 'LOGIN_SUCCESS', payload: { token: idToken, userId: localId, expireDate, role, username } });
       return { success: true };
     } catch (error) {
       dispatch({ type: 'LOGIN_FAIL', payload: { error: error.response.data.error.message } });
@@ -134,11 +156,12 @@ const UserStore = ({ children }) => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('expireDate');
+    localStorage.removeItem('username');
 
     dispatch({ type: 'LOGOUT' });
   };
 
-  const signupUser = async (email, password, role = 'user') => {
+  const signupUser = async (email, password, username, role = 'user') => {
     dispatch({ type: 'START_SIGNUP' });
     try {
       const response = await instance.post(
@@ -152,11 +175,12 @@ const UserStore = ({ children }) => {
       localStorage.setItem('token', idToken);
       localStorage.setItem('userId', localId);
       localStorage.setItem('expireDate', expireDate);
+      localStorage.setItem('username', username);
 
-      // Store user data with role in Firebase Realtime Database
-      await instance.put(`/users/${localId}.json?auth=${idToken}`, { email, role });
+      // Store user data with role and username in Firebase Realtime Database
+      await instance.put(`/users/${localId}.json?auth=${idToken}`, { email, username, role });
 
-      dispatch({ type: 'SIGNUP_SUCCESS', payload: { token: idToken, userId: localId, expireDate, role } });
+      dispatch({ type: 'SIGNUP_SUCCESS', payload: { token: idToken, userId: localId, expireDate, role, username } });
       return { success: true };
     } catch (error) {
       dispatch({ type: 'SIGNUP_FAIL', payload: { error: error.response.data.error.message } });
@@ -174,8 +198,17 @@ const UserStore = ({ children }) => {
     }
   };
 
+  const fetchUsers = async () => {
+    try {
+      const response = await instance.get('/users.json');
+      dispatch({ type: 'FETCH_USERS_SUCCESS', payload: { users: response.data } });
+    } catch (error) {
+      dispatch({ type: 'FETCH_USERS_FAIL', payload: { error: error.message } });
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ state, loginUser, logout, signupUser, updateUserRole }}>
+    <UserContext.Provider value={{ state, loginUser, logout, signupUser, updateUserRole, fetchUsers, dispatch }}>
       {children}
     </UserContext.Provider>
   );

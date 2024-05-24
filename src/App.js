@@ -15,6 +15,7 @@ import CreateZone from "./screens/createZone/CreateZone";
 import CreateCellGroup from "./screens/createCellGroup/CreateCellGroup";
 import About from "./screens/about/About";
 import WorshipSongs from "./screens/worshipSongs/WorshipSongs";
+import PrayerPage from "./screens/prayerPage/PrayerPage";
 
 function App() {
   const { state } = useContext(UserContext);
@@ -38,6 +39,7 @@ function App() {
         <Route path="/manage-members" element={<CellGroupManager />} />
         <Route path="/create-zone" element={<CreateZone />} />
         <Route path="/create-cell-group" element={<CreateCellGroup />} />
+        <Route path="/prayers" element={<PrayerPage />} />
       </Routes>
     </Router>
   );

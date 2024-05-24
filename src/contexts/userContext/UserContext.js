@@ -13,6 +13,7 @@ const initialState = {
   userId: null,
   expireDate: null,
   role: null,
+  username: null,
   users: {},
 };
 
@@ -28,6 +29,7 @@ const reducer = (state, action) => {
         userId: action.payload.userId,
         expireDate: action.payload.expireDate,
         role: action.payload.role,
+        username: action.payload.username,
       };
     case 'SIGNUP_SUCCESS':
       return {
@@ -39,6 +41,7 @@ const reducer = (state, action) => {
         userId: action.payload.userId,
         expireDate: action.payload.expireDate,
         role: action.payload.role,
+        username: action.payload.username,
       };
     case 'LOGIN_FAIL':
     case 'SIGNUP_FAIL':
@@ -52,6 +55,7 @@ const reducer = (state, action) => {
         userId: null,
         expireDate: null,
         role: null,
+        username: null,
       };
     case 'LOGOUT':
       return {
@@ -60,6 +64,7 @@ const reducer = (state, action) => {
         userId: null,
         expireDate: null,
         role: null,
+        username: null,
       };
     case 'START_LOGIN':
     case 'START_SIGNUP':
@@ -94,6 +99,7 @@ const UserStore = ({ children }) => {
     const checkUser = async () => {
       const token = localStorage.getItem('token');
       const userId = localStorage.getItem('userId');
+      const username = localStorage.getItem('username');
       if (token && userId) {
         try {
           const userResponse = await instance.get(`/users/${userId}.json?auth=${token}`);
@@ -105,6 +111,7 @@ const UserStore = ({ children }) => {
               userId,
               expireDate: new Date(localStorage.getItem('expireDate')),
               role,
+              username,
             },
           });
         } catch (error) {
@@ -125,21 +132,25 @@ const UserStore = ({ children }) => {
         { email, password, returnSecureToken: true }
       );
       const { idToken, localId, expiresIn } = response.data;
+
+      // Fetch user role and username from Firebase Realtime Database
+      const userResponse = await instance.get(`/users/${localId}.json?auth=${idToken}`);
+      const role = userResponse.data.role;
+      const username = userResponse.data.username;
+
       const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
 
       localStorage.setItem('token', idToken);
       localStorage.setItem('userId', localId);
       localStorage.setItem('expireDate', expireDate);
+      localStorage.setItem('username', username);
 
-      // Fetch user role from Firebase Realtime Database
-      const userResponse = await instance.get(`/users/${localId}.json?auth=${idToken}`);
-      const role = userResponse.data.role;
-
-      dispatch({ type: 'LOGIN_SUCCESS', payload: { token: idToken, userId: localId, expireDate, role } });
+      dispatch({ type: 'LOGIN_SUCCESS', payload: { token: idToken, userId: localId, expireDate, role, username } });
       return { success: true };
     } catch (error) {
-      dispatch({ type: 'LOGIN_FAIL', payload: { error: error.response.data.error.message } });
-      return { success: false, error: error.response.data.error.message };
+      console.error("Login error:", error.response ? error.response.data : error.message);
+      dispatch({ type: 'LOGIN_FAIL', payload: { error: error.response ? error.response.data.error.message : error.message } });
+      return { success: false, error: error.response ? error.response.data.error.message : error.message };
     }
   };
 
@@ -147,33 +158,41 @@ const UserStore = ({ children }) => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('expireDate');
+    localStorage.removeItem('username');
 
     dispatch({ type: 'LOGOUT' });
   };
 
-  const signupUser = async (email, password, role = 'user') => {
+  const signupUser = async (email, password, username, role = 'user') => {
     dispatch({ type: 'START_SIGNUP' });
     try {
+      console.log("Signup payload:", { email, password, returnSecureToken: true });
+
       const response = await instance.post(
         `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,
         { email, password, returnSecureToken: true }
       );
 
+      console.log("Signup response:", response);
+
       const { idToken, localId, expiresIn } = response.data;
       const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
 
+      // Store the token, userId, expireDate, and username in local storage
       localStorage.setItem('token', idToken);
       localStorage.setItem('userId', localId);
       localStorage.setItem('expireDate', expireDate);
+      localStorage.setItem('username', username);
 
-      // Store user data with role in Firebase Realtime Database
-      await instance.put(`/users/${localId}.json?auth=${idToken}`, { email, role });
+      // Store user data with role and username in Firebase Realtime Database
+      await instance.put(`/users/${localId}.json?auth=${idToken}`, { email, username, role });
 
-      dispatch({ type: 'SIGNUP_SUCCESS', payload: { token: idToken, userId: localId, expireDate, role } });
+      dispatch({ type: 'SIGNUP_SUCCESS', payload: { token: idToken, userId: localId, expireDate, role, username } });
       return { success: true };
     } catch (error) {
-      dispatch({ type: 'SIGNUP_FAIL', payload: { error: error.response.data.error.message } });
-      return { success: false, error: error.response.data.error.message };
+      console.error("Signup error:", error.response ? error.response.data : error.message);
+      dispatch({ type: 'SIGNUP_FAIL', payload: { error: error.response ? error.response.data.error.message : error.message } });
+      return { success: false, error: error.response ? error.response.data.error.message : error.message };
     }
   };
 
@@ -197,7 +216,7 @@ const UserStore = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ state, loginUser, logout, signupUser, updateUserRole, fetchUsers }}>
+    <UserContext.Provider value={{ state, loginUser, logout, signupUser, updateUserRole, fetchUsers, dispatch }}>
       {children}
     </UserContext.Provider>
   );
