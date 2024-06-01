@@ -14,8 +14,8 @@ import CellGroupManager from "./screens/cellGroupManager/CellGroupManager";
 import CreateZone from "./screens/createZone/CreateZone";
 import CreateCellGroup from "./screens/createCellGroup/CreateCellGroup";
 import About from "./screens/about/About";
-import WorshipSongs from "./screens/worshipSongs/WorshipSongs";
 import PrayerPage from "./screens/prayerPage/PrayerPage";
+import VideoCategories from "./screens/worshipSongs/VideoCategories";
 
 function App() {
   const { state } = useContext(UserContext);
@@ -31,11 +31,11 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
-        <Route path="/worship-songs" element={<WorshipSongs />} />
+        <Route path="/worship-songs" element={<VideoCategories />} />
         {state.role && ["admin", "moderator"].includes(state.role) && (
           <Route path="/manage-roles" element={<RoleManagement />} />
         )}
-        <Route path="*" element={<Navigate to="/" />} />{" "}
+        <Route path="*" element={<Navigate to="/" />} />
         <Route path="/manage-members" element={<CellGroupManager />} />
         <Route path="/create-zone" element={<CreateZone />} />
         <Route path="/create-cell-group" element={<CreateCellGroup />} />

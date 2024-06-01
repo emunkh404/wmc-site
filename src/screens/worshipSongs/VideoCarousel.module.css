@@ -1,0 +1,134 @@
+.container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(216, 234, 255, 0.3);
+  }
+  
+  .carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .videoWrapper {
+    margin: 0 -10px; /* Adjust margins for overlap */
+    transition: transform 0.5s ease-in-out;
+    transform-origin: center;
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);    
+  }
+  
+  .videoWrapper iframe {
+    width: 100%;
+    height: auto;
+    pointer-events: none; /* Disable interaction by default */
+  }
+  
+  .big iframe {
+    pointer-events: auto; /* Enable interaction for the current video */
+  }
+  
+  .inactiveVideo {
+    pointer-events: none; /* Disable interaction for inactive videos */
+  }
+  
+  .navButton {   
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 5;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+  }
+  
+  .navButton:hover {
+    color: #ffcc00;
+  }
+  
+  .navButton:first-of-type {
+    left: 10px; /* Adjust to position at the edge */
+  }
+  
+  .navButton:last-of-type {
+    right: 10px; /* Adjust to position at the edge */
+  }
+  
+  .big {
+    transform: scale(1.1); /* Slightly larger for the current video */
+    z-index: 3;
+    width: 30%; /* Adjust to the appropriate width */
+    margin-left: -3%; /* Overlap previous video */
+    margin-right: -3%; /* Overlap next video */
+  }
+  
+  .bigPlaying {
+    transform: scale(2); /* 2x larger when playing */
+    z-index: 4;
+    width: 40%; /* Adjust to the appropriate width */
+    margin-left: -15%; /* More overlap when playing */
+    margin-right: -15%; /* More overlap when playing */
+  }
+  
+  .medium {
+    transform: scale(0.9); /* Medium size video */
+    z-index: 2;
+    width: 25%; /* Adjust to the appropriate width */
+  }
+  
+  .small {
+    transform: scale(0.8); /* Smallest video */
+    z-index: 1;
+    width: 20%; /* Adjust to the appropriate width */
+  }
+  
+  .videoWrapper:hover {
+    z-index: 99;
+    transform: scale(1.2); /* Slightly bigger on hover */
+  }
+  
+  .indicator {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #000;
+  }
+  
+  @media (max-width: 768px) {
+    .videoWrapper {
+      width: 100%; /* Full width on small screens */
+    }
+    .videoWrapper:not(.big):not(.bigPlaying) {
+      display: none; /* Hide non-current videos on small screens */
+    }
+    .big, .bigPlaying {
+      margin: 0; /* Reset margin for full width video */
+      transform: scale(1); /* Normal size for the current video */
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .videoWrapper {
+      width: calc(100% / 3); /* 3 videos on medium screens */
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .videoWrapper {
+      width: calc(100% / 5); /* 5 videos on large screens */
+    }
+  }
+  

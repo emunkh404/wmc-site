@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
-import { videoData } from "../../data/videosData"; // Ensure this file contains your video data
-import styles from "./WorshipSongs.module.css";
+import styles from "./VideoCarousel.module.css";
 
-const VideoCarousel = () => {
+const VideoCarousel = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [numVisibleVideos, setNumVisibleVideos] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const updateNumVisibleVideos = () => {
     const width = window.innerWidth;
@@ -25,43 +25,63 @@ const VideoCarousel = () => {
   }, []);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % videoData.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
+    setIsPlaying(false);
   };
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? videoData.length - 1 : prevIndex - 1
+      prevIndex === 0 ? data.length - 1 : prevIndex - 1
     );
+    setIsPlaying(false);
+  };
+
+  const handleVideoClick = (index) => {
+    setCurrentIndex(index);
+    setIsPlaying(false);
+  };
+
+  const handlePlay = () => {
+    setIsPlaying(true);
+  };
+
+  const handlePause = () => {
+    setIsPlaying(false);
   };
 
   const getVideoIndex = (index) => {
-    return (currentIndex + index + videoData.length) % videoData.length;
+    return (currentIndex + index + data.length) % data.length;
   };
 
   const visibleVideos = Array.from({ length: numVisibleVideos }, (_, i) => {
+    const videoIndex = getVideoIndex(i - Math.floor(numVisibleVideos / 2));
     const videoClass =
-      i === Math.floor(numVisibleVideos / 2)
-        ? styles.big
+      videoIndex === currentIndex
+        ? isPlaying
+          ? styles.bigPlaying
+          : styles.big
         : i === Math.floor(numVisibleVideos / 2) - 1 || i === Math.floor(numVisibleVideos / 2) + 1
         ? styles.medium
         : styles.small;
+
+    // Update URL to use privacy-enhanced mode
+    const videoUrl = data[videoIndex].videoUrl.replace("www.youtube.com", "www.youtube-nocookie.com");
 
     return (
       <div
         key={i}
         className={`${styles.videoWrapper} ${videoClass}`}
-        onClick={() => {
-          if (i === 0) prevSlide();
-          else if (i === numVisibleVideos - 1) nextSlide();
-        }}
+        onClick={() => handleVideoClick(videoIndex)}
       >
         <iframe
-          src={videoData[getVideoIndex(i - Math.floor(numVisibleVideos / 2))].videoUrl}
-          title={`Video ${i}`}
+          src={videoUrl}
+          title={`Video ${videoIndex}`}
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          className={i === Math.floor(numVisibleVideos / 2) ? styles.activeVideo : styles.inactiveVideo}
+          className={videoIndex === currentIndex ? styles.activeVideo : styles.inactiveVideo}
+          onPlay={handlePlay}
+          onPause={handlePause}
         ></iframe>
       </div>
     );
@@ -75,7 +95,7 @@ const VideoCarousel = () => {
         <button className={styles.navButton} onClick={nextSlide}>&gt;</button>
       </div>
       <div className={styles.indicator}>
-        {currentIndex + 1} / {videoData.length}
+        {currentIndex + 1} / {data.length}
       </div>
     </Container>
   );

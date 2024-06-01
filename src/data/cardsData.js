@@ -25,7 +25,7 @@ export const cardsData = [
       link: "/prayer"
     },
     {
-      title: "Prime Pastor",
+      title: "Lead Pastor",
       description: "Meet our prime pastor and learn more about our church leadership.",
       image: "/primePastor.png",
       link: "/prime-pastor"
